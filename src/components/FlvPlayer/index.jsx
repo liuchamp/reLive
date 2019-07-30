@@ -10,6 +10,9 @@ export default class FlvPlayer extends PureComponent {
         type={type}
         isLive
         cors
+        hasAudio
+        hasVideo
+        duration={99999999999}
         config={{
           enableWorker: true,
           enableStashBuffer: false,
