@@ -10,6 +10,8 @@ import 'ace-builds/src-noconflict/theme-monokai';
 // import 'ace-builds/src-noconflict/mode-python';
 // import 'ace-builds/src-noconflict/theme-github';
 
+import styles from  './index.module.less';
+
 const CodeEditor = () => {
     const [code, setCode] = useState(`package main
 
@@ -30,7 +32,7 @@ func main(){
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             <AceEditor
                 mode="golang"
                 theme="monokai"
@@ -43,9 +45,9 @@ func main(){
                     enableLiveAutocompletion: true,
                     enableSnippets: true
                 }}
-                style={{ width: '100%', height: '300px' }}
+                style={{ width: '100%', height: "75vh" }}
             />
-            <button onClick={runCode}>Parser</button>
+            <button onClick={runCode} style={{margin: "0 auto", width: "3rem"}}>Parser</button>
         </div>
     );
 };
