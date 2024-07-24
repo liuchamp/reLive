@@ -6,7 +6,6 @@ import { Router } from "@remix-run/router";
 import ErrorPage from "./error-page";
 import MainLayout from "./components/layout/OuterLayout";
 import Home from "./pages/Home";
-
 const router: Router = createBrowserRouter([
     {
         path: "/",
@@ -17,6 +16,16 @@ const router: Router = createBrowserRouter([
                 path: "/",
                 element: <Home />,
             },
+            {
+                path: "/about",
+                lazy: async () => {
+                    const module = await import("./pages/About")
+                    return {
+                        loader: module.default,
+                        element: <module.default />
+                    }
+                },
+            }
         ]
     },
 ]);
