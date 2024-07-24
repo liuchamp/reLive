@@ -1,0 +1,47 @@
+/* src/components/Header.css */
+.header {
+    background-color: #282c34; /* 背景色 */
+    color: white; /* 文字颜色 */
+    padding: 10px 0; /* 内边距 */
+    position: sticky; /* 固定在顶部 */
+    top: 0; /* 顶部对齐 */
+    width: 100%; /* 宽度为 100% */
+    z-index: 1000; /* 确保在其他内容之上 */
+  }
+  
+  .container {
+    max-width: 1200px; /* 最大宽度 */
+    margin: 0 auto; /* 自动水平居中 */
+    padding: 0 20px; /* 左右内边距 */
+    display: flex; /* 使用 flexbox 布局 */
+    justify-content: space-between; /* 主轴对齐方式 */
+    align-items: center; /* 交叉轴对齐方式 */
+  }
+  
+  .logo {
+    font-size: 1.5rem; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+  }
+  
+  .navlist {
+    list-style: none; /* 移除默认列表样式 */
+    margin: 0; /* 移除外边距 */
+    padding: 0; /* 移除内边距 */
+    display: flex; /* 使用 flexbox 布局 */
+  }
+  
+  .navlist li {
+    margin: 0 15px; /* 左右外边距 */
+  }
+  
+  .navlist a {
+    color: white; /* 链接文字颜色 */
+    text-decoration: none; /* 移除下划线 */
+    font-size: 1rem; /* 字体大小 */
+    transition: color 0.3s; /* 颜色过渡效果 */
+  }
+  
+  .navlist a:hover {
+    color: #61dafb; /* 悬停状态下的颜色 */
+  }
+  
