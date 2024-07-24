@@ -28,6 +28,26 @@ const router: Router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: "/login",
+        lazy: async () => {
+            const module = await import("./pages/Login")
+            return {
+                loader: module.default,
+                element: <module.default />
+            }
+        }
+    },
+    {
+        path: "/coder",
+        lazy: async () => {
+            const module = await import("./pages/Coder")
+            return {
+                loader: module.default,
+                element: <module.default />
+            }
+        }
+    }
 ]);
 
 export default router
