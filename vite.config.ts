@@ -45,6 +45,9 @@ export default defineConfig({
             if (id.includes('antd')) {
               return 'antd';
             }
+            if (id.includes('crypto-js')) {
+              return 'cryptojs';
+            }
             if (id.includes('ace-builds')) {
               return 'acebuilds';
             }
