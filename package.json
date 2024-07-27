@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "gen:api": "node scripts/api.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -35,6 +36,7 @@
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "rollup-plugin-visualizer": "^5.12.0",
+    "swagger-typescript-api": "^13.0.13",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   }

@@ -22,7 +22,7 @@ const propTypes = {
 
 };
 
-const defaultProps = {};
+// const defaultProps = {};
 
 /**
  * 
@@ -37,7 +37,7 @@ const HeaderRigthContext = () => {
 }
 
 HeaderRigthContext.propTypes = propTypes;
-HeaderRigthContext.defaultProps = defaultProps;
+// HeaderRigthContext.defaultProps = defaultProps;
 // #endregion
 
 export default HeaderRigthContext;
