@@ -39,7 +39,6 @@ const initailUserVaules = {
     token: '',
 }
 export const useUserStores = create<typeof initailUserVaules>()(
-
     devtools(
         subscribeWithSelector(
             persist(
@@ -47,6 +46,10 @@ export const useUserStores = create<typeof initailUserVaules>()(
                 persistCfg
             )
         )
+        ,{
+            enabled: process.env.NODE_ENV !== 'production',
+            name: 'user',
+        }
     )
 );
 
