@@ -42,6 +42,9 @@ export default defineConfig({
             if (id.includes('lodash')) {
               return 'lodash';
             }
+            if (id.includes('antd')) {
+              return 'antd';
+            }
             if (id.includes('ace-builds')) {
               return 'acebuilds';
             }
