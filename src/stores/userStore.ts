@@ -1,13 +1,9 @@
 import { create } from 'zustand'
 import { devtools, persist, subscribeWithSelector } from 'zustand/middleware';
 
-import CryptoJS from 'crypto-js';
+import { encrypt, decrypt } from '../utils/crypto';
 
 const secretKey = 'vx1tokendata';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const encrypt = (data: any) => CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
-const decrypt = (cipherText: string) => JSON.parse(CryptoJS.AES.decrypt(cipherText, secretKey).toString(CryptoJS.enc.Utf8));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let persistCfg: any = {
@@ -18,8 +14,9 @@ if (process.env.NODE_ENV === 'production') {
     persistCfg = {
         name: 'user',
         version: 1,
-        serialize: encrypt,
-        deserialize: decrypt,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        serialize: (state: any) => encrypt(secretKey, state),
+        deserialize: (context: string) => decrypt(secretKey, context),
     }
 }
 
