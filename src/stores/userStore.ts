@@ -8,21 +8,23 @@ interface UserInfo {
     avatar: string;
 }
 
-interface useUserStores {
+export interface UserStores {
     info?: UserInfo;
     token?: string;
 }
-export const useuseUserStores = create<useUserStores>()(
+const initailUserVaules = {
+    info: {
+        name: "",
+        avatar: "",
+    },
+    token: '',
+}
+export const useUserStores = create<typeof initailUserVaules>()(
 
     devtools(
         subscribeWithSelector(
             persist(
-                () => (
-                    {
-                   
-                    }
-                )
-                ,
+                () => initailUserVaules,
                 {
                     name: 'user',
                     version: 1,
@@ -32,6 +34,6 @@ export const useuseUserStores = create<useUserStores>()(
     )
 );
 
-export const setUserInfo = () => useuseUserStores.setState((state) => ({ info: state.info }));
+export const setUserInfo = () => useUserStores.setState((state) => ({ info: state.info }));
 
 

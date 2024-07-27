@@ -13,7 +13,7 @@ const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(_store: S) =
     const keys = Object.keys(store.getState())
 
     for (const k of keys) {
-        // store.use[k] = () => store((s) => s[k])
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (store.use as any)[k] = () => store((s)=> s[k as keyof typeof s]);
     }
 
