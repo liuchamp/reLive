@@ -74,7 +74,9 @@ const CodeEditor = () => {
             const code = editor.getSelectedText()
             const pos: Position = { x: selectedCode.start.row, y: selectedCode.start.column }
             const data = await postData({ context: code, pos })
-            console.log(data)
+            if (!data.data){
+                console.log(data)
+            }
         } catch (e) {
             console.error(e);
         }

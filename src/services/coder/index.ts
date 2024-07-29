@@ -1,15 +1,7 @@
-import { Position } from "../ov/pos";
+import { CoderResponse, CoderBody } from "../ov/pos";
 
-export interface CoderBody {
-    context: string;
-    pos?: Position;
-}
 
-export interface CoderResponse {
-    code?: number;
-    data?: string;
-    msg?: string;
-}
+
 
 export const postData = async (data: CoderBody): Promise<CoderResponse> => {
     try {
