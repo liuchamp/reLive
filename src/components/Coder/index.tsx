@@ -15,6 +15,8 @@ import 'ace-builds/src-noconflict/ext-language_tools';
 import styles from './index.module.less';
 import { useCodeStores, setCode } from '../../stores/codeStore';
 import ReactAce from 'react-ace';
+import { postData } from '../../services/coder';
+import { Position } from '../../services/ov/pos';
 
 const CodeEditor = () => {
     const [readOnly, setReadOnly] = useState(false)
@@ -62,14 +64,17 @@ const CodeEditor = () => {
             console.error(e);
         }
     };
-    const parserHandle = () => {
+    const parserHandle = async () => {
         try {
             if (!editorRef.current || !editorRef.current.editor) {
                 return;
             }
             const editor = editorRef.current.editor;
             const selectedCode = editor.getSelectionRange()
-            console.log(selectedCode)
+            const code = editor.getSelectedText()
+            const pos: Position = { x: selectedCode.start.row, y: selectedCode.start.column }
+            const data = await postData({ context: code, pos })
+            console.log(data)
         } catch (e) {
             console.error(e);
         }
