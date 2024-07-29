@@ -23,43 +23,6 @@ export default defineConfig({
       },
     },
   },
-  build: {
-    rollupOptions: {
-      plugins: [visualizer()],
-      // 自定义 Rollup 配置
-      output: {
-        // 控制 chunk 文件的命名
-        chunkFileNames: 'chunks/[name].[hash].js',
-        entryFileNames: 'entry/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
-        // 可以使用 manualChunks 自定义代码拆分策略
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // 将特定库分到不同的 chunks 中
-            if (id.includes('lodash')) {
-              return 'lodash';
-            }
-            if (id.includes('lodash')) {
-              return 'lodash';
-            }
-            if (id.includes('antd')) {
-              return 'antd';
-            }
-            if (id.includes('crypto-js')) {
-              return 'cryptojs';
-            }
-            if (id.includes('ace-builds')) {
-              return 'acebuilds';
-            }
-            if (id.includes('react-ace')) {
-              return 'reactace';
-            }
-            return 'vendor';
-          }
-        }
-      }
-    }
-  },
   server: {
     proxy:{
       '/api': {
