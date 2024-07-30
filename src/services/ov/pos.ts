@@ -34,3 +34,10 @@ export interface IndentSet {
     indent: string;
     aliase?: string;// 控制程序內的名稱
 }
+
+export interface Item {
+    key: string;
+    name: string;
+    param: boolean;
+    rename: string;
+}

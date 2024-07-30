@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 // import Header from './Header';
 // import Footer from './Footer';
@@ -6,10 +6,10 @@ import styles from './layout.module.less';
 import HeaderRigthContext from './headerRight';
 
 
-const items = new Array(5).fill(null).map((_, index) => ({
-  key: index + 1,
-  label: `nav ${index + 1}`,
-}));
+// const items = new Array(5).fill(null).map((_, index) => ({
+//   key: index + 1,
+//   label: `nav ${index + 1}`,
+// }));
 
 const { Header, Content, Footer } = Layout;
 const MainLayout = () => {
@@ -24,11 +24,18 @@ const MainLayout = () => {
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={['2']}
-            items={items}
+
             style={{ flex: 1, minWidth: 0 }}
-          />
+          >
+            <Menu.Item key="1">
+              <Link to="/">开始</Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/coder">coder 工具</Link>
+            </Menu.Item>
+          </Menu>
         </div>
-      <HeaderRigthContext/>
+        <HeaderRigthContext />
       </Header>
       <Content>
         <div>

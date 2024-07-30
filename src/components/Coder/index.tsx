@@ -6,6 +6,8 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-golang';
 import 'ace-builds/src-noconflict/theme-monokai';
 
+import { App } from 'antd';
+
 // 可选：引入更多的模式和主题
 // import 'ace-builds/src-noconflict/mode-python';
 // import 'ace-builds/src-noconflict/theme-github';
@@ -16,10 +18,16 @@ import styles from './index.module.less';
 import { useCodeStores, setCode } from '../../stores/codeStore';
 import ReactAce from 'react-ace';
 import { postData } from '../../services/coder';
-import { Position } from '../../services/ov/pos';
+import { Item, Position } from '../../services/ov/pos';
+import CoderFeildList from './page';
+import { genId } from '../../utils/id';
+import { setIndentCfg, setIndentCode, setOriginCode } from '../../stores/indentsStore';
 
 const CodeEditor = () => {
+
+    const { modal } = App.useApp();
     const [readOnly, setReadOnly] = useState(false)
+
 
     const [contextMenuVisible, setContextMenuVisible] = useState(false);
     const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
@@ -74,14 +82,42 @@ const CodeEditor = () => {
             const code = editor.getSelectedText()
             const pos: Position = { x: selectedCode.start.row, y: selectedCode.start.column }
             const data = await postData({ context: code, pos })
-            if (!data.data){
-                console.log(data)
+            if (data.data?.indents) {
+
+                const indentsCfgList: Item[] = data.data?.indents.map((item) => {
+                    const v: Item = {
+                        rename: item,
+                        param: false,
+                        key: genId(item),
+                        name: item,
+                    }
+                    return v
+                })
+
+                setIndentCode(data.data.content)
+                setIndentCfg(indentsCfgList)
+                setOriginCode(code)
+                const editIndentCfgStatus = await modal.confirm({
+                    title: 'index tables',
+                    content: <CoderFeildList onCompete={handleCfgComplete} />,
+                    styles: {
+                        content: {
+                            width: "50vw",
+                            height: "50vh",
+                        }
+                    }
+                });
+                console.log(editIndentCfgStatus)
             }
+
         } catch (e) {
             console.error(e);
         }
     };
 
+    const handleCfgComplete = (data: Item[]) => {
+        console.log(data)
+    }
     return (
         <div className={styles.container}>
             <AceEditor
