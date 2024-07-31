@@ -3,6 +3,7 @@ import type { TableProps } from 'antd';
 import { Form, Input, Popconfirm, Switch, Table, Typography } from 'antd';
 import { Item } from '../../services/ov/pos';
 import { setIndentCfg, useIndentCfgStore } from '../../stores/indentsStore';
+import CodeBlock from './codes';
 
 
 
@@ -83,8 +84,9 @@ interface Props {
  */
 const CoderFeildList: React.FC<Props> = () => {
     const [form] = Form.useForm();
-    
-    const data = useIndentCfgStore((state)=>state.list)
+
+    const data = useIndentCfgStore((state) => state.list)
+    const genCode = useIndentCfgStore((state) => state.code)
     const [editingKey, setEditingKey] = useState('');
 
     const isEditing = (record: Item) => {
@@ -136,7 +138,7 @@ const CoderFeildList: React.FC<Props> = () => {
             dataIndex: 'param',
             width: '15%',
             editable: true,
-            render: (text: boolean)=> {
+            render: (text: boolean) => {
                 return <Switch checked={text} />
             }
         },
@@ -145,7 +147,7 @@ const CoderFeildList: React.FC<Props> = () => {
             dataIndex: 'rename',
             width: '40%',
             editable: true,
-            
+
         },
         {
             title: 'operation',
@@ -187,22 +189,26 @@ const CoderFeildList: React.FC<Props> = () => {
     });
 
     return (
-        <Form form={form} component={false}>
-            <Table
-                components={{
-                    body: {
-                        cell: EditableCell,
-                    },
-                }}
-                bordered
-                dataSource={data}
-                columns={mergedColumns}
-                rowClassName="editable-row"
-                pagination={{
-                    onChange: cancel,
-                }}
-            />
-        </Form>
+        <>
+            <Form form={form} component={false}>
+                <Table
+                    components={{
+                        body: {
+                            cell: EditableCell,
+                        },
+                    }}
+                    bordered
+                    dataSource={data}
+                    columns={mergedColumns}
+                    rowClassName="editable-row"
+                    pagination={{
+                        onChange: cancel,
+                    }}
+                />
+            </Form>
+            <CodeBlock code={genCode} language={'go'} />
+
+        </>
     );
 }
 

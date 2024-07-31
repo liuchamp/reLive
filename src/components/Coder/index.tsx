@@ -25,7 +25,7 @@ import { setIndentCfg, setIndentCode, setOriginCode } from '../../stores/indents
 
 const CodeEditor = () => {
 
-    const { modal } = App.useApp();
+    const { modal,notification } = App.useApp();
     const [readOnly, setReadOnly] = useState(false)
 
 
@@ -83,7 +83,6 @@ const CodeEditor = () => {
             const pos: Position = { x: selectedCode.start.row, y: selectedCode.start.column }
             const data = await postData({ context: code, pos })
             if (data.data?.indents) {
-
                 const indentsCfgList: Item[] = data.data?.indents.map((item) => {
                     const v: Item = {
                         rename: item,
@@ -103,11 +102,16 @@ const CodeEditor = () => {
                     styles: {
                         content: {
                             width: "50vw",
-                            height: "50vh",
+                            height: "100%",
                         }
                     }
                 });
+              
                 console.log(editIndentCfgStatus)
+            }else if (data.msg ) {
+                notification.error({
+                    message: data.msg
+                })
             }
 
         } catch (e) {
