@@ -25,7 +25,7 @@ import { setIndentCfg, setIndentCode, setOriginCode } from '../../stores/indents
 
 const CodeEditor = () => {
 
-    const { modal,notification } = App.useApp();
+    const { modal, notification } = App.useApp();
     const [readOnly, setReadOnly] = useState(false)
 
 
@@ -82,6 +82,7 @@ const CodeEditor = () => {
             const code = editor.getSelectedText()
             const pos: Position = { x: selectedCode.start.row, y: selectedCode.start.column }
             const data = await postData({ context: code, pos })
+            console.log(data)
             if (data.data?.indents) {
                 const indentsCfgList: Item[] = data.data?.indents.map((item) => {
                     const v: Item = {
@@ -106,11 +107,13 @@ const CodeEditor = () => {
                         }
                     }
                 });
-              
+
                 console.log(editIndentCfgStatus)
-            }else if (data.msg ) {
+            } else if (data.code) {
                 notification.error({
-                    message: data.msg
+                    message: "不支持该片段解析",
+                    description: data.msg,
+                    placement: "topRight",
                 })
             }
 
