@@ -7,7 +7,7 @@ import { ConfigProvider } from 'antd';
 // import routes from '~react-pages'
 
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
 } from 'react-router-dom'
 
 
@@ -19,9 +19,9 @@ import AppRoutes from './router';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ConfigProvider>
-      <BrowserRouter>
-      <AppRoutes />
-      </BrowserRouter>
+      <Router>
+        <AppRoutes />
+      </Router>
     </ConfigProvider>
   </React.StrictMode>,
 )

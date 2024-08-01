@@ -16,7 +16,7 @@ export default defineConfig({
     visualizer(),
     Pages({
       dirs: 'src/pages', // 默认扫描 src/pages 文件夹
-      extensions: ['jsx'], // 默认支持 ['vue', 'md']
+      extensions: ['tsx'], // 默认支持 ['vue', 'md']
     })
   ],
   css: {
