@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import type { TableProps } from 'antd';
 import { Form, Input, Popconfirm, Switch, Table, Typography } from 'antd';
+
+
 import { Item } from '../../services/ov/pos';
 import { setIndentCfg, useIndentCfgStore } from '../../stores/indentsStore';
 import CodeBlock from './codes';
-
+import styles from './index.module.less';
 
 
 
@@ -189,7 +191,7 @@ const CoderFeildList: React.FC<Props> = () => {
     });
 
     return (
-        <>
+        <div className={styles.containerContext}>
             <Form form={form} component={false}>
                 <Table
                     components={{
@@ -207,8 +209,7 @@ const CoderFeildList: React.FC<Props> = () => {
                 />
             </Form>
             <CodeBlock code={genCode} language={'go'} />
-
-        </>
+        </div>
     );
 }
 

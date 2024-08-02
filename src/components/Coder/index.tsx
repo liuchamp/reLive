@@ -1,22 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import AceEditor from 'react-ace';
-
-// 引入 Ace Editor 的主题和模式
-// import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/mode-golang';
-import 'ace-builds/src-noconflict/theme-monokai';
-
 import { App } from 'antd';
 
 // 可选：引入更多的模式和主题
 // import 'ace-builds/src-noconflict/mode-python';
 // import 'ace-builds/src-noconflict/theme-github';
-
+// 引入 Ace Editor 的主题和模式
+// import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/mode-golang';
+import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
 import styles from './index.module.less';
 import { useCodeStores, setCode } from '../../stores/codeStore';
-import ReactAce from 'react-ace';
+
 import { postData } from '../../services/coder';
 import { Item, Position } from '../../services/ov/pos';
 import CoderFeildList from './page';
@@ -24,17 +21,17 @@ import { genId } from '../../utils/id';
 import { setIndentCfg, setIndentCode, setOriginCode } from '../../stores/indentsStore';
 
 const CodeEditor = () => {
-
-    const { modal, notification } = App.useApp();
     const [readOnly, setReadOnly] = useState(false)
-
-
     const [contextMenuVisible, setContextMenuVisible] = useState(false);
     const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
-    const editorRef = useRef<ReactAce | null>(null);
+
+    const editorRef = useRef<AceEditor | null>(null);
 
     const list = useCodeStores((state) => state.list)
     const code = useCodeStores((state) => state.code)
+
+    const { modal, notification } = App.useApp();
+    
     const handleChange = (newCode: string) => {
         console.log(list)
         setCode(newCode);
