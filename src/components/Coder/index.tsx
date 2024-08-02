@@ -15,7 +15,7 @@ import styles from './index.module.less';
 import { useCodeStores, setCode } from '../../stores/codeStore';
 
 import { postData } from '../../services/coder';
-import { Item, Position } from '../../services/ov/pos';
+import { CoderResponse, Item, Position } from '../../services/ov/pos';
 import CoderFeildList from './page';
 import { genId } from '../../utils/id';
 import { setIndentCfg, setIndentCode, setOriginCode } from '../../stores/indentsStore';
@@ -31,7 +31,7 @@ const CodeEditor = () => {
     const code = useCodeStores((state) => state.code)
 
     const { modal, notification } = App.useApp();
-    
+
     const handleChange = (newCode: string) => {
         console.log(list)
         setCode(newCode);
@@ -69,6 +69,35 @@ const CodeEditor = () => {
             console.error(e);
         }
     };
+    const displayCode = async (data: CoderResponse) => {
+        if (!data.data?.indents) {
+            return
+        }
+        const indentsCfgList: Item[] = data.data?.indents.map((item) => {
+            const v: Item = {
+                rename: item,
+                param: false,
+                key: genId(item),
+                name: item,
+            }
+            return v
+        })
+
+        setIndentCode(data.data.content)
+        setIndentCfg(indentsCfgList)
+        setOriginCode(code)
+        const editIndentCfgStatus = await modal.confirm({
+            title: 'index tables',
+            content: <CoderFeildList onCompete={handleCfgComplete} />,
+            styles: {
+                content: {
+                    width: "50vw",
+                    height: "100%",
+                }
+            }
+        });
+        console.log(editIndentCfgStatus)
+    };
     const parserHandle = async () => {
         try {
             if (!editorRef.current || !editorRef.current.editor) {
@@ -81,31 +110,7 @@ const CodeEditor = () => {
             const data = await postData({ context: code, pos })
             console.log(data)
             if (data.data?.indents) {
-                const indentsCfgList: Item[] = data.data?.indents.map((item) => {
-                    const v: Item = {
-                        rename: item,
-                        param: false,
-                        key: genId(item),
-                        name: item,
-                    }
-                    return v
-                })
-
-                setIndentCode(data.data.content)
-                setIndentCfg(indentsCfgList)
-                setOriginCode(code)
-                const editIndentCfgStatus = await modal.confirm({
-                    title: 'index tables',
-                    content: <CoderFeildList onCompete={handleCfgComplete} />,
-                    styles: {
-                        content: {
-                            width: "50vw",
-                            height: "100%",
-                        }
-                    }
-                });
-
-                console.log(editIndentCfgStatus)
+               await displayCode(data)
             } else if (data.code) {
                 notification.error({
                     message: "不支持该片段解析",
