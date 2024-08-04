@@ -22,7 +22,6 @@ const AppRoutes = () => {
         //     children: routes.filter(route => route.path.startsWith('/admin')),
         // },
     ]);
-    console.log(element)
     return (
         <Suspense fallback={<p>Loading...</p>}>
             {element}
@@ -30,11 +29,4 @@ const AppRoutes = () => {
     )
 };
 
-// function AppRoutes() {
-//     return (
-//         <Suspense fallback={<p>Loading...</p>}>
-//             {useRoutes(routes)}
-//         </Suspense>
-//     )
-// }
 export default AppRoutes
